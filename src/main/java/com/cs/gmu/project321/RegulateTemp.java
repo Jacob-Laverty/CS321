@@ -3,66 +3,30 @@ package com.cs.gmu.project321;
 /**
  * Created by Jacob on 11/20/14.
  */
-public class RegulateTemp {
+public class TempControl {
 
-    double desiredTemp;
-    double currentTemp;
+    Temperature desiredTemp;
+    Temperature currentTemp;
+    AC myAC;
+    PriHeat myHeater;
+    SecHeat mySecondHeater;
+    Fan myFan;
+    String mode;
 
-    RegulateTemp(){
-        //desiredTemp from CreateProgram
-        //currentTemp from IndoorTempInterface
+    void setMode(String mode){
+        this.mode = mode;
     }
 
-    void setDesiredTemp(double dt){
-        desiredTemp = dt;
+    void monitorTemp(){
+        //make fan fan
+        if(desiredTemp < currentTemp){
+            //regulate heat
+        } else {
+            //regulate ac
+        }
+
     }
 
-    double getDesiredTemp(){
-        return desiredTemp;
-    }
 
-    double getCurrentTemp(){
-        return currentTemp;
-    }
-
-
-
-
-
-    public class RegulateHeat {
-
-        RegulateHeat(){
-
-        }
-
-        void activateHeatingUnit(){
-
-        }
-
-        void activateSecondUnit(){
-
-        }
-
-        void deactivateHeatingUnits(){
-
-        }
-    }
-
-    public class RegulateAC {
-
-        RegulateAC(){
-
-        }
-
-        void activateAC(){
-
-        }
-
-        void deactivateAC(){
-
-        }
-
-
-    }
 
 }
