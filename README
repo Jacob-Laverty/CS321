@@ -1,0 +1,6 @@
+CS321 Project code directory
+
+Group Members: Jacob Laverty, Fill in your names kiddos
+
+Install and run:
+You'll need Maven. Google it, download it. You'll probably do mvn install and mvn test at some point. I'll get to this later.
