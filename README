@@ -1,6 +1,49 @@
-CS321 Project code directory
+#CS321 Project code directory
 
-Group Members: Jacob Laverty, Fill in your names kiddos
+##Group Members: Jacob Laverty, Fill in your names kiddos
 
-Install and run:
+###Install and run:
+
 You'll need Maven. Google it, download it. You'll probably do mvn install and mvn test at some point. I'll get to this later.
+
+###Git:
+
+####Overview:
+Git is what will be using for our code management system. Here I will give a brief overview of git and then I will get into some more advanced concepts if you're interested. Most of you won't need this for awhile, but it is probably the single most valuable skill you can learn in school that school won't teach you.
+
+####Repository:
+So with Git, like most CVS, you have a central repository that every developer can **clone**. The central repository is hosted on http://github.com. Infact, to even be reading this, you had to first clone our repository by running
+```
+git clone https://github.com/Jacob-Laverty/CS321.git
+```
+The created a local copy of our central repository on your machine. Now, we all have copies of this repository so everyone can make changes to it in parallel. When you are done with your changes you can do one of two things. 
+
+1. You can commit them. A commit is just like saving your progress, nothing happens other than a flag is set in your local repository that essentially says "This is the state of my **local** repository now". You can move back X number of commits or to a specifc commit if at some point of introduced a huge error.
+2. The second thing you can do is you can push. A push is you literally pushing your local repository onto the central repository. All of your commits/changes will be added to the central repo. 
+
+So if we all are making changes to different things then we may all push to the central repo without stepping on eachothers changes. But what happens if two developers make different changes to the same code?
+
+####Merge:
+
+A merge conflict sounds a lot more scary than it actually is. It is literlly what I just described, two devs make different changes to the same lines of code. What will happen here is that git will block off the subject code and essentially ask you which version to keep. Dev 1 or Dev 2? You will be able to see both of the changes next to each other and you will simply delete the one you don't want. Note, you should always communicate with the other developer when this occurs. So, what if we have a file that has a bunch of features in it and each developer wants to make changes to that file. It sounds like we would have a ton of merge conflicts right?
+
+####Branches:
+You would be correct if it weren't for this beautiful little feature. There are two types of branches, remote branches and local branches. They are the same thing functionally but conceptually they are different. A branch in general is an exact copy of whatever repo you branched off of. Lets look at why we would want this. Take our previous example, where we have a single file for all of our different features and each developer is tasked with adding a feature to that file. What we could do is have each developer make branch of the central repository and implement their feature. They will be able to fully implement their entire feature without stepping on other developer's code. When they are done, we merge the branch back into the original central repository. Sure, we may have merge conflicts at this point, but we will far fewer conflicts than if everyone was writing code on the same branch.
+
+####Pulling:
+
+A pull is the opposite of a push. Instead of pushing your local code to the central repo, you are pulling the central repo to your local copy. Think about a developer who works over the weekend. He pushes some code on Saturday and Sunday and on Monday every other developer is behind the central repo. When they go to push on Monday, git will say, "hey, your behind the central repo, do a pull to have the same central repo and then push your changes". 
+
+####Git Flow:
+
+Git flow is mostly a concept that is incredibly useful to know on any development team. Take a look at the following image and I'll describe whats going on here. 
+![Git Flow](http://nvie.com/img/git-model@2x.png)
+
+Alright lets start with the most important branches here, **develop** and **master**. The master branch can be thought of as the major release branch. Everyone of those blue circles is a critical release of a version or code. A critical release usually occurs for one of two reasons.
+
+1. Either goals haev been met, features have been implemented and it is simply time for a new release. Think OSX Yosemite.
+2. Or, a major issue was found in the previous release and the developers really need to get a new version out with problems solved. Think ShellShock bug.
+
+So in the image, release 0.2 was the result of a major bug fix, while 1.0 was just a normal release. In our class project we will undoubtedly have one release.
+
+Now onto the the develop branch. The first thing you may notice is there are far more yellow circles than there are blue circles. Well the reason for that is simple, the develop branch is where we are saving all of our incremental development changes. 
