@@ -18,12 +18,49 @@ public class TempControl {
     }
 
     void monitorTemp(){
-        //make fan fan
-        if(desiredTemp < currentTemp){
-            //regulate heat
+
+        double dt = desiredTemp.get();
+        double ct = currentTemp.get();
+
+        myFan.on();
+
+        if(mode.equalsIgnoreCase("AC")) {
+            if (dt < ct) {
+                myAC.on();
+                myAC.currentMode = true;
+                while (dt < ct) {
+
+                }
+                myAC.off();
+                myAC.currentMode = false;
+            }
+
+        } else if(mode.equalsIgnoreCase("Heat")){
+            if(dt > ct){
+                if(/* myHeater is functional */){
+                    myHeater.on();
+                    myheater.currentMode = true;
+                } else {
+                    mySecondHeater.on();
+                    mySecondHeater.currentMode = true;
+                }
+                while (dt > ct) {
+
+                }
+                myHeater.off();
+                myHeater.currentMode = false;
+                mySecondHeater.off();
+                mySecondHeater.currentMode = false;
+
+            }
+
+        } else if(mode.equalsIgnoreCase("FanOnly")){
+            myFan.currentMode = true;
         } else {
-            //regulate ac
+            myFan.off();
+            return;
         }
+
 
     }
 
