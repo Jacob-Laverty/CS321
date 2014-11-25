@@ -6,20 +6,20 @@ package com.cs.gmu.project321;
 public class TempControl {
 
     //need dummy classes for all of these objects and for Temperature
-    AC myAC = new AC();
-    PriHeat myHeater = new PriHeat();
-    SecHeat mySecondHeater = new SecHeat();
-    Fan myFan = new Fan();
-    IndoorTempSensor its = new IndoorTempSensor();
+    static AC myAC = new AC();
+    static PriHeat myHeater = new PriHeat();
+    static SecHeat mySecondHeater = new SecHeat();
+    static Fan myFan = new Fan();
+    static Thermostat therm = new Thermostat();
 
     String mode;
     double desired;
     double current;
 
-    TempControl(String mode, Temperature desiredTemp){
+    TempControl(String mode){
         this.mode = mode;
-        desired = desiredTemp.get();
-        current = its.currentTemp.get();
+        desired = therm.desiredTemp.get();
+        current = therm.currentTemp.get();
         monitorTemp();
     }
 
@@ -35,33 +35,27 @@ public class TempControl {
             if (desired < current){
                 while (desired < current) {
                     myAC.on();
-                    myAC.currentMode = true;
-                    current = its.currentTemp.get();
+                    current = therm.currentTemp.get();
                 }
                 myAC.off();
-                myAC.currentMode = false;
             }
 
         } else if(mode.equalsIgnoreCase("Heat")){
             if(desired > current){
                 while (desired > current) {
                     myHeater.on();
-                    myHeater.currentMode = true;
                     if(desired - current >= 10){
                         mySecondHeater.on();
-                        mySecondHeater.currentMode = true;
                     }
-                    current = its.currentTemp.get();
+                    current = therm.currentTemp.get();
                 }
                 myHeater.off();
-                myHeater.currentMode = false;
                 mySecondHeater.off();
-                mySecondHeater.currentMode = false;
 
             }
 
         } else if(mode.equalsIgnoreCase("FanOnly")){
-            myFan.currentMode = true;
+
         } else {
             myFan.off();
             return;
