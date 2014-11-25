@@ -5,13 +5,23 @@ package com.cs.gmu.project321;
  */
 public class TempControl {
 
-    Temperature desiredTemp;
-    Temperature currentTemp;
-    AC myAC;
-    PriHeat myHeater;
-    SecHeat mySecondHeater;
-    Fan myFan;
+    //need dummy classes for all of these objects and for Temperature
+    AC myAC = new AC();
+    PriHeat myHeater = new PriHeat();
+    SecHeat mySecondHeater = new SecHeat();
+    Fan myFan = new Fan();
+    IndoorTempSensor its = new IndoorTempSensor();
+
     String mode;
+    double desired;
+    double current;
+
+    TempControl(String mode, Temperature desiredTemp){
+        this.mode = mode;
+        desired = desiredTemp.get();
+        current = its.currentTemp.get();
+        monitorTemp();
+    }
 
     void setMode(String mode){
         this.mode = mode;
@@ -19,33 +29,29 @@ public class TempControl {
 
     void monitorTemp(){
 
-        double dt = desiredTemp.get();
-        double ct = currentTemp.get();
-
         myFan.on();
 
         if(mode.equalsIgnoreCase("AC")) {
-            if (dt < ct) {
-                myAC.on();
-                myAC.currentMode = true;
-                while (dt < ct) {
-
+            if (desired < current){
+                while (desired < current) {
+                    myAC.on();
+                    myAC.currentMode = true;
+                    current = its.currentTemp.get();
                 }
                 myAC.off();
                 myAC.currentMode = false;
             }
 
         } else if(mode.equalsIgnoreCase("Heat")){
-            if(dt > ct){
-                if(/* myHeater is functional */){
+            if(desired > current){
+                while (desired > current) {
                     myHeater.on();
-                    myheater.currentMode = true;
-                } else {
-                    mySecondHeater.on();
-                    mySecondHeater.currentMode = true;
-                }
-                while (dt > ct) {
-
+                    myHeater.currentMode = true;
+                    if(desired - current >= 10){
+                        mySecondHeater.on();
+                        mySecondHeater.currentMode = true;
+                    }
+                    current = its.currentTemp.get();
                 }
                 myHeater.off();
                 myHeater.currentMode = false;
