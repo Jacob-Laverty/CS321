@@ -12,7 +12,7 @@ public class TemperatureTest {
   @Test
   public void setTempTest() {
     this.temp.set(50);
-
+    //test setting temp value 
     assertEquals(50l, (long)this.temp.get());
   }
 }
