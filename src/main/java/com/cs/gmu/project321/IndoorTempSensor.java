@@ -5,8 +5,8 @@ package com.cs.gmu.project321;
  */
 public class IndoorTempSensor {
 
-    private Long rawSensorValue;
-    public Temperature currentTemp;
+  private long rawSensorValue;
+  public Temperature currentTemp = new Temperature();
 
     //need to BS rawSensorValue somehow
 

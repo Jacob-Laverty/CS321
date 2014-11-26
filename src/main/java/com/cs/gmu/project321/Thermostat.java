@@ -5,16 +5,20 @@ package com.cs.gmu.project321;
  */
 public class Thermostat {
 
-    public Temperature desiredTemp;
-    public Temperature currentTemp;
+    public Temperature desiredTemp = new Temperature();
+    public Temperature currentTemp = new Temperature();
 
-    static IndoorTempSensor its = new IndoorTempSensor();
+    public static IndoorTempSensor its = new IndoorTempSensor();
 
-    Thermostat(){
+    public Thermostat(){
         currentTemp.set(its.currentTemp.get());
     }
 
-    void setDesiredTemp(double t){
+    public void setCurrentTemp() {
+      this.currentTemp.set(this.its.currentTemp.get());
+    }
+
+    void setDesiredTemp(long t){
         desiredTemp.set(t);
     }
 }

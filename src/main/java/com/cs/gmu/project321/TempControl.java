@@ -3,7 +3,7 @@ package com.cs.gmu.project321;
 /**
  * Created by Jacob on 11/20/14.
  */
-public class RegulateTemp {
+public class TempControl {
     //need dummy classes for all of these objects and for Temperature
     private static AC myAC = new AC();
     private static PriHeat myHeater = new PriHeat();
@@ -15,7 +15,7 @@ public class RegulateTemp {
     double desired;
     double current;
 
-    RegulateTemp(String mode){
+    TempControl(String mode){
         this.mode = mode;
         desired = therm.desiredTemp.get();
         current = therm.currentTemp.get();

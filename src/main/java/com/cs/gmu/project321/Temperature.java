@@ -5,9 +5,9 @@ package com.cs.gmu.project321;
  */
 public class Temperature {
 
-    private double temp;
+    private long temp;
 
-    void set(double t){ temp = t; }
+    void set(long t){ temp = t; }
 
-    double get() { return temp; }
+    long get() { return temp; }
 }
