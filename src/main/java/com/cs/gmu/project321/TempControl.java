@@ -11,27 +11,43 @@ public class TempControl {
     private static Fan myFan = new Fan();
     private static Thermostat therm = new Thermostat();
 
-    String mode;
-    double desired;
-    double current;
+    public String mode;
+    private long desired;
+    private long current;
 
     TempControl(String mode){
         this.mode = mode;
-        desired = therm.desiredTemp.get();
-        current = therm.currentTemp.get();
+        this.desired = therm.desiredTemp.get();
+        this.current = therm.currentTemp.get();
         monitorTemp();
     }
 
-    void setMode(String mode){
+    public void setMode(String mode){
         this.mode = mode;
+    }
+
+    public void setDesired(long temp) {
+      this.therm.desiredTemp.set(temp);
+      this.desired = this.therm.desiredTemp.get();
+    }
+
+    public long getCurrent() {
+      return this.current;
+    }
+
+    public void updateCurrentTemp() {
+      this.therm.its.updateRawSensorValue();
+      this.therm.its.monitorTemp();
+      this.therm.setCurrentTemp();
+      this.current = this.therm.currentTemp.get();
     }
 
     void monitorTemp(){
         myFan.on();
 
         if(mode.equalsIgnoreCase("AC")) {
-            if (desired < current){
-                while (desired < current) {
+            if (desired > current){
+                while (desired > current) {
                     myAC.on();
                     current = therm.currentTemp.get();
                 }
