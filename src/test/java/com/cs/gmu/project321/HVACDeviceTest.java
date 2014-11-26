@@ -54,6 +54,9 @@ public class HVACDeviceTest {
   private boolean getDeviceStatus() {
     return device.currentMode;
   }
+  
+  //tests each device (AC, PriHeat, SecHeat, Fan) to ensure that they turn on
+  //and once on are the current mode, and once off are no longer the current mode
 
   @Test
   public void ACTest() {
