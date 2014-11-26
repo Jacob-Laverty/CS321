@@ -28,7 +28,7 @@ public class IndoorTempSensorTest {
     } catch(IllegalAccessException e) {
       System.err.println(e.getMessage());
     }
-
+    //checks that monitor temp correctly sets currentTemp based on raw value from sensor
     this.indoorTempSensor.monitorTemp();
     assertEquals(indoorTempSensor.currentTemp.get(), rawValue);
   }
