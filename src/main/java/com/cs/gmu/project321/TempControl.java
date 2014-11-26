@@ -22,6 +22,21 @@ public class TempControl {
         monitorTemp();
     }
 
+    protected HVACDevice HVACDAO(HVACDevice device) {
+      if(device instanceof AC) {
+       return this.myAC;
+      } else if (device instanceof PriHeat) {
+        return this.myHeater;
+      } else if (device instanceof SecHeat) {
+        return this.mySecondHeater;
+      } else if (device instanceof Fan) {
+        return this.myFan;
+      } else {
+        return null;
+      }
+
+    }
+
     public void setMode(String mode){
         this.mode = mode;
     }
@@ -46,27 +61,28 @@ public class TempControl {
         myFan.on();
 
         if(mode.equalsIgnoreCase("AC")) {
-            if (desired > current){
-                while (desired > current) {
+            if (desired < current){
+                while (desired < current) {
                     myAC.on();
                     current = therm.currentTemp.get();
+                    return;
                 }
-                myAC.off();
             }
-
+          myAC.off();
         } else if(mode.equalsIgnoreCase("Heat")){
-            if(desired > current){
-                while (desired > current) {
+            if(desired < current){
+                while (desired < current) {
                     myHeater.on();
-                    if(desired - current >= 10){
+                    if(current - desired >= 10){
                         mySecondHeater.on();
                     }
                     current = therm.currentTemp.get();
+                  return;
                 }
-                myHeater.off();
-                mySecondHeater.off();
-
             }
+          myHeater.off();
+          mySecondHeater.off();
+
 
         } else if(mode.equalsIgnoreCase("FanOnly")){
 
